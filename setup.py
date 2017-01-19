@@ -29,15 +29,15 @@ setup(
     author_email='dev@praekelt.org',
     url='https://github.com/praekeltfoundation/seed-papertrail',
     packages=[
-        'seed-papertrail',
+        'seed_papertrail',
     ],
-    package_dir={'seed-papertrail':
-                 'seed-papertrail'},
+    package_dir={'seed_papertrail':
+                 'seed_papertrail'},
     include_package_data=True,
     install_requires=requirements,
     license="BSD",
     zip_safe=False,
-    keywords='seed-papertrail',
+    keywords='seed papertrail',
     classifiers=[
         'Intended Audience :: Developers',
         'Natural Language :: English',
