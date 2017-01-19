@@ -1,4 +1,0 @@
-buildscript: sideloader/build.sh
-postinstall: sideloader/postinstall.sh
-pip: []
-dependencies: []

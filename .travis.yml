@@ -17,7 +17,7 @@ install:
 
 script:
   - flake8
-  - py.test --cov=seed-papertrail --cov-report=term
+  - py.test --cov=seed_papertrail --cov-report=term
 
 after_success:
   - coveralls
