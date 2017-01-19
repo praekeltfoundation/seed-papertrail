@@ -11,8 +11,9 @@ def handler(host, port, level='DEBUG',
     }
 
 
-def formatter():
+def formatter(sender_name, program_name):
     return {
-        'format': '%(asctime)s SENDER_NAME PROGRAM_NAME: %(message)s',
+        'format': '%%(asctime)s %s %s: %%(message)s' % (sender_name,
+                                                        program_name),
         'datefmt': '%Y-%m-%dT%H:%M:%S',
     }
