@@ -17,7 +17,10 @@ class ConfigTestCase(TestCase):
         })
 
     def test_formatter(self):
-        formatter_config = formatter()
+        formatter_config = formatter('sender_name', 'program_name')
         self.assertEqual(
             set(formatter_config.keys()),
             set(['format', 'datefmt']))
+        self.assertEqual(
+            formatter_config['format'] % {'asctime': 'foo', 'message': 'bar'},
+            'foo sender_name program_name: bar')
