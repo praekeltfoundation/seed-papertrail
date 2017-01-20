@@ -8,10 +8,10 @@ class RequestTimingMiddleware(object):
     log_level = 'INFO'
 
     def process_request(self, request):
-        request._papertrail_start = timezone.now()
+        setattr(request, '_papertrail_start', timezone.now())
 
     def process_response(self, request, response):
-        start = getattr(request, '_papertrail_start')
+        start = getattr(request, '_papertrail_start', None)
         if not start:
             return response
 
