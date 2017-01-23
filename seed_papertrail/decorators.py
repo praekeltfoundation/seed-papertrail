@@ -59,7 +59,7 @@ class PapertrailHelper(object):
     def timer(self, message, level='DEBUG', logger='papertrail'):
         logger = logging.getLogger(logger)
         start = time.clock()
-        yield
+        yield logger
         duration = time.clock() - start
         logger.log(getattr(logging, level), '%f: %s' % (duration, message))
 

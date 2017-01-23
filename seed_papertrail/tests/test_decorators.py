@@ -52,3 +52,14 @@ class DecoratorTestCase(TestCase):
 
         self.assertTrue(str(l).startswith('papertrail ERROR'))
         self.assertTrue('foo' in str(l))
+
+    @log_capture()
+    def test_papertrail_timer_with_logger(self, l):
+
+        with papertrail.timer('foo', level='ERROR') as trail:
+            trail.debug('ello!')
+
+        self.assertTrue(str(l).startswith('papertrail DEBUG'))
+        self.assertTrue('papertrail ERROR' in str(l))
+        self.assertTrue('foo' in str(l))
+        self.assertTrue('ello!' in str(l))
