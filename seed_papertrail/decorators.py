@@ -2,6 +2,7 @@ from functools import wraps
 from contextlib import contextmanager
 import logging
 import time
+import sys
 
 
 # NOTE: got this from http://stackoverflow.com/a/14412901
@@ -22,6 +23,7 @@ def doublewrap(f):
             return lambda realf: f(realf, *args, **kwargs)
 
     return new_dec
+
 
 
 class PapertrailHelper(object):
@@ -56,12 +58,20 @@ class PapertrailHelper(object):
         return decorator
 
     @contextmanager
-    def timer(self, message, level='DEBUG', logger='papertrail'):
+    def timer(self, message, level='DEBUG', logger='papertrail',
+              thresholds={'OK': (0.0, 0.6),
+                          'WARNING': (0.6, 1.0),
+                          'CRITICAL': (1.0, sys.maxint)}):
         logger = logging.getLogger(logger)
         start = time.clock()
         yield logger
         duration = time.clock() - start
-        logger.log(getattr(logging, level), '%f: %s' % (duration, message))
+        [threshold] = filter(
+            lambda (key, value): value[0] <= duration < value[1],
+            thresholds.items())
+        logger.log(
+            getattr(logging, level),
+            '%f: %s, threshold:%s' % (duration, message, threshold[0]))
 
 
 papertrail = PapertrailHelper()
