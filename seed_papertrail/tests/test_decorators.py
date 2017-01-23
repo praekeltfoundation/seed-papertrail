@@ -32,7 +32,6 @@ class DecoratorTestCase(TestCase):
         self.assertTrue(
             '%s.%s' % (testing.__module__, testing.__name__) in str(l))
 
-
     @log_capture()
     def test_papertrail_error_naked(self, l):
 
@@ -44,3 +43,12 @@ class DecoratorTestCase(TestCase):
         self.assertTrue(str(l).startswith('papertrail ERROR'))
         self.assertTrue(
             '%s.%s' % (testing.__module__, testing.__name__) in str(l))
+
+    @log_capture()
+    def test_papertrail_timer(self, l):
+
+        with papertrail.timer('foo', level='ERROR'):
+            True
+
+        self.assertTrue(str(l).startswith('papertrail ERROR'))
+        self.assertTrue('foo' in str(l))

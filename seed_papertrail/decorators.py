@@ -1,4 +1,5 @@
 from functools import wraps
+from contextlib import contextmanager
 import logging
 import time
 
@@ -53,5 +54,14 @@ class PapertrailHelper(object):
                 return resp
             return wrap
         return decorator
+
+    @contextmanager
+    def timer(self, message, level='DEBUG', logger='papertrail'):
+        logger = logging.getLogger(logger)
+        start = time.clock()
+        yield
+        duration = time.clock() - start
+        logger.log(getattr(logging, level), '%f: %s' % (duration, message))
+
 
 papertrail = PapertrailHelper()
