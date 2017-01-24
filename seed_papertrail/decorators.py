@@ -68,7 +68,7 @@ class PapertrailHelper(object):
         yield logger
         duration = time.time() - start
         [threshold] = filter(
-            lambda (key, value): value[0] <= duration < value[1],
+            lambda kv: kv[1][0] <= duration < kv[1][1],
             thresholds.items())
         logger.log(
             getattr(logging, level),
