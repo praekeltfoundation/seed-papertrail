@@ -62,13 +62,13 @@ class PapertrailHelper(object):
     def timer(self, message, level='DEBUG', logger='papertrail',
               thresholds={'OK': (0.0, 0.6),
                           'WARNING': (0.6, 1.0),
-                          'CRITICAL': (1.0, sys.maxint)}):
+                          'CRITICAL': (1.0, sys.maxsize)}):
         logger = logging.getLogger(logger)
         start = time.time()
         yield logger
         duration = time.time() - start
         [threshold] = filter(
-            lambda (key, value): value[0] <= duration < value[1],
+            lambda kv: kv[1][0] <= duration < kv[1][1],
             thresholds.items())
         logger.log(
             getattr(logging, level),
