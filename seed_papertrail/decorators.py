@@ -63,12 +63,13 @@ class PapertrailHelper(object):
                 if random.random() <= sample:
                     logger.log(
                         getattr(logging, level),
-                        '%s.%s %f: %s, threshold:%s' % (
+                        '%s.%s %f: %s, threshold:%s, sampling:%s' % (
                             f.__module__,
                             f.__name__,
                             duration,
                             message,
-                            self.threshold_display(duration, thresholds)
+                            self.threshold_display(duration, thresholds),
+                            sample,
                         ))
                 return resp
             return wrap
