@@ -3,6 +3,7 @@ from contextlib import contextmanager
 import logging
 import time
 import sys
+import random
 
 
 # NOTE: got this from http://stackoverflow.com/a/14412901
@@ -40,18 +41,19 @@ class PapertrailHelper(object):
         logger = logging.getLogger(logger)
 
         @doublewrap
-        def decorator(f, message=''):
+        def decorator(f, message='', sample=1.0):
             @wraps(f)
             def wrap(*args, **kwargs):
                 start = time.clock()
                 resp = f(*args, **kwargs)
                 duration = time.clock() - start
-                logger.log(
-                    getattr(logging, level),
-                    '%s.%s %f: %s' % (
-                        f.__module__,
-                        f.__name__,
-                        duration, message))
+                if random.random() <= sample:
+                    logger.log(
+                        getattr(logging, level),
+                        '%s.%s %f: %s' % (
+                            f.__module__,
+                            f.__name__,
+                            duration, message))
                 return resp
             return wrap
         return decorator
