@@ -17,7 +17,7 @@ class DecoratorTestCase(TestCase):
         self.assertTrue(first_line.startswith('papertrail INFO'))
         self.assertTrue(
             '%s.%s' % (testing.__module__, testing.__name__) in second_line)
-        self.assertTrue(second_line.endswith('foo'))
+        self.assertTrue(second_line.endswith('foo, threshold:OK'))
 
     @log_capture()
     def test_papertrail_error(self, l):
