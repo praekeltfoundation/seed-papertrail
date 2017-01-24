@@ -64,9 +64,9 @@ class PapertrailHelper(object):
                           'WARNING': (0.6, 1.0),
                           'CRITICAL': (1.0, sys.maxint)}):
         logger = logging.getLogger(logger)
-        start = time.clock()
+        start = time.time()
         yield logger
-        duration = time.clock() - start
+        duration = time.time() - start
         [threshold] = filter(
             lambda (key, value): value[0] <= duration < value[1],
             thresholds.items())
