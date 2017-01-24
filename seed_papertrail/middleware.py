@@ -17,8 +17,7 @@ class RequestTimingMiddleware(object):
 
         finish = timezone.now()
         logger = logging.getLogger(self.log_handler)
-        logger.log(getattr(logging, self.log_level), '%s %s %s %s' % (
-            start.isoformat(),
+        logger.log(getattr(logging, self.log_level), '%s %s %s' % (
             request.method,
             request.path,
             finish - start,

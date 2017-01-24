@@ -25,7 +25,6 @@ def doublewrap(f):
     return new_dec
 
 
-
 class PapertrailHelper(object):
 
     def __init__(self):
